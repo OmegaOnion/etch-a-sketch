@@ -1,3 +1,7 @@
 div:hover{
     background-color: orange;
 }
+
+.filled{
+    background-color: black;
+}

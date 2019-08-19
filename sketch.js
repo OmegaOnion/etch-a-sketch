@@ -10,6 +10,7 @@ function createGrid(){
             const gridElement = document.createElement('div');
             gridElement.style.cssText = "width:" + (100/GRID_HEIGHT) + "%;" + 
 "height:" + ((100/GRID_HEIGHT)*2) + "%;float:left;";
+            gridElement.addEventListener("mouseenter",fillColor);
             container.appendChild(gridElement);
         }
     }
@@ -17,4 +18,8 @@ function createGrid(){
 
 function onLoad(){
     createGrid();
+}
+
+function fillColor(e){
+    e.target.classList.add('filled');
 }
