@@ -28,7 +28,8 @@ function fillColor(e){
 function createElements(){
     const container = document.createElement('div');
     container.id = 'container';
-    container.style.cssText= "width:500px;height:500px;border-style:solid;";
+    container.style.cssText= "width:500px;height:500px;border-style:solid;" +
+"margin-left:auto;margin-right:auto;";
     document.body.appendChild(container);
     createGrid(container);
 }
