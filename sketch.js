@@ -1,15 +1,15 @@
 function createGrid(container){
-    var GRID_HEIGHT = 16;
-    var GRID_WIDTH = 16;
+    var GRID_HEIGHT = 32;
+    var GRID_WIDTH = GRID_HEIGHT;
 
-    //const container = document.querySelector('#container');   
+    var HEIGHT_RATIO = 1; // height multiplier
 
     for (i=0;i<GRID_HEIGHT;i++){
         for (j=0;j<GRID_WIDTH;j++){
             //single grid element
             const gridElement = document.createElement('div');
             gridElement.style.cssText = "width:" + (100/GRID_HEIGHT) + "%;" + 
-"height:" + ((100/GRID_HEIGHT)*2) + "%;float:left;";
+"height:" + ((100/GRID_HEIGHT)*HEIGHT_RATIO) + "%;float:left;";
             gridElement.addEventListener("mouseenter",fillColor);
             container.appendChild(gridElement);
         }
@@ -27,7 +27,8 @@ function fillColor(e){
 
 function createElements(){
     const container = document.createElement('div');
-    container.id = '#container';
+    container.id = 'container';
+    container.style.cssText= "width:500px;height:500px;border-style:solid;";
     document.body.appendChild(container);
     createGrid(container);
 }
