@@ -1,5 +1,5 @@
-function createGrid(container){
-    var GRID_HEIGHT = 32;
+function createGrid(container, gridSize){
+    var GRID_HEIGHT = gridSize;
     var GRID_WIDTH = GRID_HEIGHT;
 
     var HEIGHT_RATIO = 1; // height multiplier
@@ -8,6 +8,7 @@ function createGrid(container){
         for (j=0;j<GRID_WIDTH;j++){
             //single grid element
             const gridElement = document.createElement('div');
+            gridElement.className = 'cell';
             gridElement.style.cssText = "width:" + (100/GRID_HEIGHT) + "%;" + 
 "height:" + ((100/GRID_HEIGHT)*HEIGHT_RATIO) + "%;float:left;";
             gridElement.addEventListener("mouseenter",fillColor);
@@ -26,12 +27,14 @@ function fillColor(e){
 }
 
 function createElements(){
+    var DEFAULT_SIZE = 32;
     const container = document.createElement('div');
     container.id = 'container';
     container.style.cssText= "width:500px;height:500px;border-style:solid;" +
 "margin-left:auto;margin-right:auto;";
     document.body.appendChild(container);
-    createGrid(container);
+    createGrid(container, DEFAULT_SIZE);
+    createButtons(container);
 }
 
 function randomColor(){
@@ -54,4 +57,39 @@ function randomColor(){
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
-  }
+}
+
+function createButtons(container){
+    const resetButton = document.createElement('button');
+    resetButton.innerHTML = "Reset";
+    resetButton.style.cssText = "margin:5px;";
+
+    resetButton.addEventListener("click",resetGrid);
+
+    const sizeButton = document.createElement('button');
+    sizeButton.innerHTML = "Set grid size";
+    sizeButton.style.cssText = "margin:5px;";
+
+    sizeButton.addEventListener("click",setGridSize);
+
+    container.appendChild(resetButton);
+    container.appendChild(sizeButton);
+}
+
+function resetGrid(){
+    var elements = document.getElementsByClassName('cell');
+    for(i=0;i<elements.length;i++){
+        elements[i].style.cssText+="background-color:white;";
+    }
+}
+
+function setGridSize(container){
+    var gridSize = prompt("Grid height/length?");
+    removeChildren(container);
+    //createGrid(container,gridSize);
+    //createButtons(container);
+}
+
+function removeChildren(container){
+    container.innerHTML = "";
+}
