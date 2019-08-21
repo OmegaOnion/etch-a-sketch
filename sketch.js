@@ -1,6 +1,12 @@
-function createGrid(container, gridSize){
+function createGrid(gridSize){
     var GRID_HEIGHT = gridSize;
     var GRID_WIDTH = GRID_HEIGHT;
+
+    const container = document.createElement('div');
+    container.id = 'container';
+    container.style.cssText= "width:500px;height:500px;border-style:solid;" +
+"margin-left:auto;margin-right:auto;";
+    document.body.appendChild(container);
 
     var HEIGHT_RATIO = 1; // height multiplier
 
@@ -15,6 +21,7 @@ function createGrid(container, gridSize){
             container.appendChild(gridElement);
         }
     }
+    return container;
 }
 
 function onLoad(){
@@ -22,18 +29,16 @@ function onLoad(){
 }
 
 function fillColor(e){
-    //console.log(randomColor());
-    e.target.style.cssText+="background-color:" + randomColor() + ";";
+    e.preventDefault();
+    if (e.buttons == 1){
+        e.target.style.cssText+="background-color:" + randomColor() + ";";
+    }    
 }
 
 function createElements(){
     var DEFAULT_SIZE = 32;
-    const container = document.createElement('div');
-    container.id = 'container';
-    container.style.cssText= "width:500px;height:500px;border-style:solid;" +
-"margin-left:auto;margin-right:auto;";
-    document.body.appendChild(container);
-    createGrid(container, DEFAULT_SIZE);
+
+    const container = createGrid(DEFAULT_SIZE);
     createButtons(container);
 }
 
@@ -83,13 +88,15 @@ function resetGrid(){
     }
 }
 
-function setGridSize(container){
+function setGridSize(){
     var gridSize = prompt("Grid height/length?");
-    removeChildren(container);
-    //createGrid(container,gridSize);
-    //createButtons(container);
+    removeChildren();
+    const container = createGrid(gridSize);
+    createButtons(container);
 }
 
-function removeChildren(container){
-    container.innerHTML = "";
+function removeChildren(){
+    while (document.body.hasChildNodes()){
+        document.body.removeChild(document.body.firstChild);
+    }
 }
